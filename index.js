@@ -62,8 +62,16 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning() {
+  let points = Math.random();
+  if (points <= 0.33) {
+    let points = 0;
+  } else if ( points <= 0.66) {
+    let points = 1;
+  } else {
+    let points = 2;
+  }
+  // do we need a return here?
 }
 
 
