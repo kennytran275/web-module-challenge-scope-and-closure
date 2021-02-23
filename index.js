@@ -93,10 +93,16 @@ Use the finalScore function below to do the following:
 }
 */
 
-function finalScore(inning, number) {
-  /*
-  
-  */
+function finalScore(inning, numberOfInnings) {
+  let scoreBoard = {
+    Home: 0,
+    Away: 0,
+  };
+  for (let i = 1; i <= numberOfInnings; i++) {
+    scoreBoard.Home += inning();
+    scoreBoard.Away += inning();
+  }
+  return scoreBoard;
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -104,8 +110,14 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning) {
+  let scoreBoard = {
+    Home: 0,
+    Away: 0,
+  };
+  scoreBoard.Home = inning();
+  scoreBoard.Away = inning();
+  return scoreBoard;
 }
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
@@ -149,9 +161,36 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, numberOfInnings) {
+  let scoreBoard = [];
+  for (let i = 1; i <= numberOfInnings; i++) {
+    scoreBoard.push(
+      `Inning ${i}: Away ${getInningScore(inning).Away} - Home ${
+        getInningScore(inning).Home
+      }`
+    );
+  }
+  if (
+    finalScore(inning, numberOfInnings).Away ==
+    finalScore(inning, numberOfInnings).Home
+  ) {
+    scoreBoard.push(
+      `This game will require extra innings: Away ${
+        finalScore(inning, numberOfInnings).Away
+      } - Home ${finalScore(inning, numberOfInnings).Home}`
+    );
+    return scoreBoard;
+  } else {
+    scoreBoard.push(
+      `Final Score: Away ${finalScore(inning, numberOfInnings).Away} - Home ${
+        finalScore(inning, numberOfInnings).Home
+      }`
+    );
+    return scoreBoard;
+  }
 }
+
+console.log(scoreboard(getInningScore, inning, 9));
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo() {
