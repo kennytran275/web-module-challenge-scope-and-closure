@@ -163,31 +163,24 @@ Use the scoreboard function below to do the following:
 
 function scoreboard(getInningScore, inning, numberOfInnings) {
   let scoreBoard = [];
+  let totalHomeSum = 0;
+  let totalAwaySum = 0;
   for (let i = 1; i <= numberOfInnings; i++) {
+    let inningScore = getInningScore(inning);
     scoreBoard.push(
-      `Inning ${i}: Away ${getInningScore(inning).Away} - Home ${
-        getInningScore(inning).Home
-      }`
+      `Inning ${i}: Away ${inningScore.Away} - Home ${inningScore.Home}`
     );
+    totalHomeSum += inningScore.Home;
+    totalAwaySum += inningScore.Away;
   }
-  if (
-    finalScore(inning, numberOfInnings).Away ==
-    finalScore(inning, numberOfInnings).Home
-  ) {
+  if (totalHomeSum == totalAwaySum) {
     scoreBoard.push(
-      `This game will require extra innings: Away ${
-        finalScore(inning, numberOfInnings).Away
-      } - Home ${finalScore(inning, numberOfInnings).Home}`
+      `This game will require extra innings: Away ${totalAwaySum} - Home ${totalHomeSum}`
     );
-    return scoreBoard;
   } else {
-    scoreBoard.push(
-      `Final Score: Away ${finalScore(inning, numberOfInnings).Away} - Home ${
-        finalScore(inning, numberOfInnings).Home
-      }`
-    );
-    return scoreBoard;
+    scoreBoard.push(`Final Score: Away ${totalAwaySum} - Home ${totalHomeSum}`);
   }
+  return scoreBoard;
 }
 
 console.log(scoreboard(getInningScore, inning, 9));
